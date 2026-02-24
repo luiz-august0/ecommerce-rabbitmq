@@ -1,0 +1,7 @@
+CREATE TABLE pagamento (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    valor DECIMAL(9, 2) NOT NULL,
+    status ENUM('CRIADO', 'CONFIRMADO', 'CANCELADO') NOT NULL,
+    pedido_id BIGINT NOT NULL
+);
+
