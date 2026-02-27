@@ -1,9 +1,6 @@
 package mx.florinda.eats.pedidos.config;
 
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.support.converter.JacksonJsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +10,25 @@ import org.springframework.context.annotation.Configuration;
 public class AmqpConfig {
 
   public static final String PAGAMENTO_CONFIRMADO_QUEUE = "pedidos.pagamento-confirmado";
+  public static final String PAGAMENTO_CONFIRMADO_DLQ = PAGAMENTO_CONFIRMADO_QUEUE + ".dlq";
+  public static final String PEDIDOS_DLX = "pedidos.dlx";
+
+  @Bean
+  public DirectExchange pedidosDLX() {
+    return new DirectExchange(PEDIDOS_DLX);
+  }
+
+  @Bean
+  public Queue pedidosPagamentosConfirmadoDLQ() {
+    return new Queue(PAGAMENTO_CONFIRMADO_DLQ);
+  }
+
+  @Bean
+public Binding pedidosPagamentosConfirmadoDLQBinding(Queue pedidosPagamentosConfirmadoDLQ, DirectExchange pedidosDLX) {
+    return BindingBuilder.bind(pedidosPagamentosConfirmadoDLQ)
+        .to(pedidosDLX)
+        .with(PAGAMENTO_CONFIRMADO_DLQ);
+  }
 
   @Bean
   public MessageConverter jsonMessageConverter() {
@@ -26,7 +42,10 @@ public class AmqpConfig {
 
   @Bean
   public Queue filaPagamentosConfirmadosPedido() {
-    return new Queue(PAGAMENTO_CONFIRMADO_QUEUE);
+    return QueueBuilder.durable(PAGAMENTO_CONFIRMADO_QUEUE)
+        .deadLetterExchange(PEDIDOS_DLX)
+        .deadLetterRoutingKey(PAGAMENTO_CONFIRMADO_DLQ)
+        .build();
   }
 
   @Bean
