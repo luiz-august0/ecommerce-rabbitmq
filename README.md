@@ -153,6 +153,19 @@ Principais pontos implementados:
 
 Estas mudanças permitem demonstrar os conceitos da live: exchanges, routing keys, bindings, consumer groups, fair dispatch e DLX/DLQ.
 
+### Links Importantes
+
+- Simulador de RabbitMQ: https://tryrabbitmq.com/
+- Conceitos do AMQP (Exchange, Queues, Bindings): https://www.rabbitmq.com/tutorials/amqp-concepts
+- Tutoriais do RabbitMQ em diversas linguagens: https://www.rabbitmq.com/tutorials
+- Tutoriais do RabbitMQ usando Spring AMQP: https://www.rabbitmq.com/tutorials/tutorial-one-spring-amqp
+- Spring AMQP: https://spring.io/projects/spring-amqp
+- Spring Integration: https://spring.io/projects/spring-integration
+- Spring Cloud Stream: https://spring.io/projects/spring-cloud-stream
+- Quorum Queues: https://www.rabbitmq.com/docs/quorum-queues
+- Publisher Confirms: https://www.rabbitmq.com/docs/confirms
+- Kubernetes Operator para RabbitMQ: https://www.rabbitmq.com/kubernetes/operator/operator-overview
+
 ## Diagrama da Live
 
 ![](diagrama-live.png)
