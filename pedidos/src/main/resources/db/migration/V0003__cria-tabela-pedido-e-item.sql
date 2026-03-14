@@ -6,7 +6,8 @@ CREATE TABLE pedido (
     nome_cliente VARCHAR(100) NOT NULL,
     cpf_cliente VARCHAR(14) NOT NULL,
     celular_cliente VARCHAR(16) NOT NULL,
-    endereco_cliente VARCHAR(300) NOT NULL
+    endereco_cliente VARCHAR(300) NOT NULL,
+    xml_nota_fiscal TEXT
 );
 
 -- tabela ItemPedido
